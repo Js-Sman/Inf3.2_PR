@@ -28,7 +28,7 @@ public class Start
    */
   public static void main(String[] args) 
   {
-      System.out.println("Init_IntelliJ");
+      System.out.println("Init_Netbeans");
     try
     {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

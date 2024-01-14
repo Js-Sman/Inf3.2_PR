@@ -1,26 +1,27 @@
 package Aufgabe_Init;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 /**
  *
  * @author JS
  */
+import Aufgabe_Init.View.MainWindow;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-/**
- * Builder Class
- * @author le
- */
 public class Start
 {
+  /**
+   * Start initialisiert alle Komponenten
+   */
   public Start()
   {
+    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
+    view.registerEvents();  //Events registrieren
 
+    //Fenster Parameter setzen, kann auch im Fenster ctor passieren
+    view.setSize(300,300);
+    view.setVisible(true);
   }
 
   /**
@@ -28,13 +29,15 @@ public class Start
    */
   public static void main(String[] args) 
   {
-      System.out.println("Init_Netbeans");
+
+    //Look-and-Feel des Systems übernehmen
     try
     {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     }
     catch (Exception ex)
     {
+      //MessageBox in der Mitte vom Anzeigebildschirm → parentComponent: null
       JOptionPane.showMessageDialog(null, ex.toString());
     }
     new Start();

@@ -1,6 +1,6 @@
-package Aufgabe_Init;
+package Aufgabe2_LayoutManager;
 
-import Aufgabe_Init.View.MainWindow;
+import Aufgabe2_LayoutManager.View.MainWindow;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -16,7 +16,7 @@ public class Start
     view.registerEvents();  //Events registrieren
 
     //Fenster Parameter setzen, kann auch im Fenster ctor passieren
-    view.setSize(300,300);
+    view.pack();  //Mit pack() wird das Fenster an alle seine Komponenten angepasst
     view.setVisible(true);
   }
 

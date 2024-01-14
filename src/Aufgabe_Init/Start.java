@@ -1,9 +1,5 @@
 package Aufgabe_Init;
 
-/**
- *
- * @author JS
- */
 import Aufgabe_Init.View.MainWindow;
 
 import javax.swing.JOptionPane;
@@ -14,7 +10,7 @@ public class Start
   /**
    * Start initialisiert alle Komponenten
    */
-  public Start()
+  private Start()
   {
     MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
     view.registerEvents();  //Events registrieren

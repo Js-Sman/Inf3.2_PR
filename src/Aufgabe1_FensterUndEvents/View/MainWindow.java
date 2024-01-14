@@ -1,7 +1,8 @@
-package Aufgabe_Init.View;
+package Aufgabe1_FensterUndEvents.View;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -24,14 +25,42 @@ public class MainWindow extends JFrame implements MouseListener, WindowListener 
     }
 
 
+    /**
+     * Das Clicked Event wird getriggert, wenn eine Maustaste los gelassen wird
+     * @param e the event to be processed
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 
+
     }
 
+    /**
+     * Das CPressed Event wird getriggert, wenn eine Maustaste gedrückt wird
+     * @param e the event to be processed
+     */
     @Override
     public void mousePressed(MouseEvent e) {
+        int red = getRandomNumber(0, 255);
+        int green = getRandomNumber(0, 255);
+        int blue = getRandomNumber(0, 255);
 
+        //Neues Color-Objekt erstellen
+        Color color = new Color(red,green,blue);
+
+        //Referenz auf die Content Pane des Fensters
+        this.getContentPane().setBackground(color);
+
+    }
+
+    /**
+     * Generiert eine zufällige Ganzzahl
+     * @param from: Untere Grenze (eingeschlossen)
+     * @param to: Obere grenze (eingeschlossen)
+     */
+    public int getRandomNumber(int from, int to){
+        int range = to - from + 1;
+        return (int)((Math.random() * range) + from);
     }
 
     @Override
@@ -56,7 +85,14 @@ public class MainWindow extends JFrame implements MouseListener, WindowListener 
 
     @Override
     public void windowClosing(WindowEvent e) {
+        //Für Benutzer abfragen immer einen ConfirmDialog verwende
+        //Optionen werden als int von der Form zurückgegeben
+        int result = JOptionPane.showConfirmDialog(this,"Wollen Sie wirklich das Fenster schließen?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
+        //Option Dialogergebnisse immer mit Dialogkonstanten abfragen
+        if (result == JOptionPane.YES_OPTION){
+            System.exit(0);
+        }
     }
 
     @Override

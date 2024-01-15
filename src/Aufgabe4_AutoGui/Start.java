@@ -1,6 +1,4 @@
-package Aufgabe_Init;
-
-import Aufgabe_Init.View.MainWindow;
+package Aufgabe4_AutoGui;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -12,12 +10,12 @@ public class Start
    */
   private Start()
   {
-    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
-    view.registerEvents();  //Events registrieren
-
-    //Fenster Parameter setzen, kann auch im Fenster ctor passieren
-    view.setSize(300,300);
-    view.setVisible(true);
+//    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
+//    view.registerEvents();  //Events registrieren
+//
+//    //Fenster Parameter setzen, kann auch im Fenster ctor passieren
+//    view.setSize(300,300);
+//    view.setVisible(true);
   }
 
   /**

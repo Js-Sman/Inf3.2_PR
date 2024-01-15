@@ -26,12 +26,17 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        fcTableChooser = new javax.swing.JFileChooser();
+        pumTable = new javax.swing.JPopupMenu();
+        pumiAddRow = new javax.swing.JMenuItem();
+        pumiDeleteRow = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         btnOpen = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnAddRow = new javax.swing.JButton();
         btnDeleteRow = new javax.swing.JButton();
+        btnUndo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lblOpenFile = new javax.swing.JLabel();
@@ -43,6 +48,24 @@ public class MainWindow extends javax.swing.JFrame {
         miAddRow = new javax.swing.JMenuItem();
         miDeleteRow = new javax.swing.JMenuItem();
         miDelete = new javax.swing.JMenuItem();
+
+        fcTableChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fcTableChooserActionPerformed(evt);
+            }
+        });
+        jPanel1.add(fcTableChooser);
+
+        pumiAddRow.setText("jMenuItem1");
+        pumiAddRow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pumiAddRowActionPerformed(evt);
+            }
+        });
+        pumTable.add(pumiAddRow);
+
+        pumiDeleteRow.setText("jMenuItem1");
+        pumTable.add(pumiDeleteRow);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hauptfenster");
@@ -67,14 +90,6 @@ public class MainWindow extends javax.swing.JFrame {
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnSave);
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete24.gif"))); // NOI18N
-        btnDelete.setMnemonic('d');
-        btnDelete.setToolTipText("Tabelle Löschen");
-        btnDelete.setFocusable(false);
-        btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnDelete);
-
         btnAddRow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/RowInsertAfter24.gif"))); // NOI18N
         btnAddRow.setMnemonic('a');
         btnAddRow.setToolTipText("Zeile EInfügen");
@@ -91,17 +106,29 @@ public class MainWindow extends javax.swing.JFrame {
         btnDeleteRow.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnDeleteRow);
 
+        btnUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Undo16.gif"))); // NOI18N
+        btnUndo.setMnemonic('z');
+        btnUndo.setFocusable(false);
+        btnUndo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUndo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUndoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnUndo);
+
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Vorname", "Nachname", "MartikelNr", "Email"
+                "Name", "Telefon"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -160,6 +187,18 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fcTableChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcTableChooserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fcTableChooserActionPerformed
+
+    private void pumiAddRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pumiAddRowActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pumiAddRowActionPerformed
+
+    private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUndoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -197,11 +236,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddRow;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteRow;
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUndo;
+    private javax.swing.JFileChooser fcTableChooser;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
@@ -213,5 +254,79 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem miDeleteRow;
     private javax.swing.JMenuItem miOpen;
     private javax.swing.JMenuItem miSave;
+    private javax.swing.JPopupMenu pumTable;
+    private javax.swing.JMenuItem pumiAddRow;
+    private javax.swing.JMenuItem pumiDeleteRow;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the fcTableChooser
+     */
+    public javax.swing.JFileChooser getFcTableChooser() {
+        return fcTableChooser;
+    }
+
+    public javax.swing.JMenuItem getPumiAddRow() {
+        return pumiAddRow;
+    }
+
+    public javax.swing.JMenuItem getPumiDeleteRow() {
+        return pumiDeleteRow;
+    }
+
+    public javax.swing.JTable getjTable1() {
+        return jTable1;
+    }
+
+    public javax.swing.JLabel getLblOpenFile() {
+        return lblOpenFile;
+    }
+
+    public void setLblOpenFile(javax.swing.JLabel lblOpenFile) {
+        this.lblOpenFile = lblOpenFile;
+    }
+
+    public javax.swing.JButton getBtnAddRow() {
+        return btnAddRow;
+    }
+
+    public javax.swing.JButton getBtnDeleteRow() {
+        return btnDeleteRow;
+    }
+
+    public javax.swing.JButton getBtnOpen() {
+        return btnOpen;
+    }
+
+    public javax.swing.JButton getBtnSave() {
+        return btnSave;
+    }
+
+    public javax.swing.JMenuItem getMiAddRow() {
+        return miAddRow;
+    }
+
+    public javax.swing.JMenuItem getMiDelete() {
+        return miDelete;
+    }
+
+    public javax.swing.JMenuItem getMiDeleteRow() {
+        return miDeleteRow;
+    }
+
+    public javax.swing.JMenuItem getMiOpen() {
+        return miOpen;
+    }
+
+    public javax.swing.JMenuItem getMiSave() {
+        return miSave;
+    }
+
+    public javax.swing.JButton getBtnUndo() {
+        return btnUndo;
+    }
+
+    public void setBtnUndo(javax.swing.JButton btnUndo) {
+        this.btnUndo = btnUndo;
+    }
 }

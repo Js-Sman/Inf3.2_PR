@@ -1,6 +1,9 @@
 package Aufgabe5_CommandDP;
 
+import Aufgabe5_CommandDP.Controller.CommandController;
 import Aufgabe5_CommandDP.View.MainWindow;
+import Aufgabe5_CommandDP.Model.AdressverwaltungModel;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -11,12 +14,19 @@ public class Start
    */
   private Start()
   {
-    //Alle Design spezifischen Eigenschaften werden im Designer beschrieben 
-    MainWindow view = new MainWindow(); //AutoGui Fenster hat einen leeren ctor -> Eigenschafften werden im Designer gesetzt
+    //Alle Design spezifischen Eigenschaften werden im Designer beschrieben.
+    //Für alle Elemente, die ansprechbar sein sollen, müssen getter / setter Methoden bereitgestellt werden.
+    //Mit Refactor → encapsulate fields können diese automatisch generiert werden.
+    MainWindow view = new MainWindow(); //AutoGui Fenster hat einen leeren ctor → Eigenschaften werden im Designer gesetzt
+    AdressverwaltungModel model = new AdressverwaltungModel();
+
+    //Da wir ein eigenes TableModel verwenden, muss es in der allgemeinen jTable gesetzt werden.
+    view.getjTable1().setModel(model);
+
+    CommandController controller = new CommandController(view, model);
+
     
-    //view.registerEvents();  //Events registrieren
-    
-    //Die view muss trotzdem von der Start Klasse aus sichtbar gesetzt werden
+    //Die view muss trotzdem von der Startklasse aus sichtbar gesetzt werden
     view.setVisible(true);
 
   }

@@ -2,18 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Aufgabe5_CommandDP.controller_old;
+package Aufgabe5_CommandDP.Controller.Commands;
 
 import java.util.ArrayList;
-import t4_adressverwaltung.model.AdressverwaltungModel;
-import t4_adressverwaltung.view.MainWindow;
+
+import Aufgabe5_CommandDP.Controller.CommandInterface;
+import Aufgabe5_CommandDP.Model.AdressverwaltungModel;
+import Aufgabe5_CommandDP.View.MainWindow;
 
 /**
  *
  * @author Js-Sc, Ahrens
  * Klasse zur Ausführung des Kommandos "Löschen einer Zeile"
  */
-public class CommandDeleteRow implements CommandInterface{
+public class CommandDeleteRow implements CommandInterface {
     private MainWindow view;
     private AdressverwaltungModel model;
     private int selectedRow;
@@ -33,7 +35,7 @@ public class CommandDeleteRow implements CommandInterface{
      */
     @Override
     public void execute() {
-        int selectedRow = view.getTbMainTable().getSelectedRow();
+        int selectedRow = view.getjTable1().getSelectedRow();
         if (selectedRow == -1) {
             int row = model.getRowCount();
             if (row >= 1) {
@@ -62,12 +64,6 @@ public class CommandDeleteRow implements CommandInterface{
             }
             model.insertRowData(lastdeletedRow, model.getLastDeletedData());
         }
-    }
-
-
-    @Override
-    public void redo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override

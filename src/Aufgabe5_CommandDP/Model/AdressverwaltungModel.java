@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Aufgabe5_CommandDP.model_old;
+package Aufgabe5_CommandDP.Model;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

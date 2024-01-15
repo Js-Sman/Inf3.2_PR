@@ -1,6 +1,6 @@
-package Aufgabe4_AutoGui;
+package Aufgabe5_CommandDP;
 
-import Aufgabe4_AutoGui.View.MainWindow;
+import Aufgabe5_CommandDP.View.MainWindow;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 

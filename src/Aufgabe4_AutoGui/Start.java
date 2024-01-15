@@ -1,5 +1,6 @@
 package Aufgabe4_AutoGui;
 
+import Aufgabe4_AutoGui.View.MainWindow;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -10,12 +11,14 @@ public class Start
    */
   private Start()
   {
-//    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
-//    view.registerEvents();  //Events registrieren
-//
-//    //Fenster Parameter setzen, kann auch im Fenster ctor passieren
-//    view.setSize(300,300);
-//    view.setVisible(true);
+    //Alle Design spezifischen Eigenschaften werden im Designer beschrieben 
+    MainWindow view = new MainWindow(); //AutoGui Fenster hat einen leeren ctor -> Eigenschafften werden im Designer gesetzt
+    
+    //view.registerEvents();  //Events registrieren
+    
+    //Die view muss trotzdem von der Start Klasse aus sichtbar gesetzt werden
+    view.setVisible(true);
+
   }
 
   /**

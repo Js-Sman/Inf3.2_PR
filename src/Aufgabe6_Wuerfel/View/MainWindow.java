@@ -1,4 +1,4 @@
-package Aufgabe_Init.View;
+package Aufgabe6_Wuerfel.View;
 
 import javax.swing.*;
 

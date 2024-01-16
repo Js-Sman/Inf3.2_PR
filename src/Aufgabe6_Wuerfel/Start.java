@@ -1,6 +1,6 @@
-package Aufgabe_Init;
+package Aufgabe6_Wuerfel;
 
-import Aufgabe_Init.View.MainWindow;
+import Aufgabe6_Wuerfel.View.MainWindow;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

@@ -1,6 +1,8 @@
 package Aufgabe6_Wuerfel;
 
-import Aufgabe6_Wuerfel.View.MainWindow;
+import Aufgabe6_Wuerfel.Controller.WuerfelAdapter;
+import Aufgabe6_Wuerfel.Controller.WuerfelController;
+import Aufgabe6_Wuerfel.Model.WuerfelModel;
 import Aufgabe6_Wuerfel.View.WuerfelView;
 
 import javax.swing.JOptionPane;
@@ -14,7 +16,15 @@ public class Start
   private Start()
   {
     WuerfelView view = new WuerfelView(); //Gui im Designer gebaut
+    WuerfelModel model = new WuerfelModel();
 
+    //Adapter anlegen
+    WuerfelAdapter adapter = new WuerfelAdapter(view, model);
+    model.addWuerfelWertSubscriber(adapter);  //Der Adapter muss sich im Model einschreiben
+
+    //Controller anlegen
+    WuerfelController controller = new WuerfelController(view, model);
+    controller.registerEvents();
 
 
     view.setVisible(true);

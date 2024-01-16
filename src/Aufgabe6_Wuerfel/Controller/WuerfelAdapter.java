@@ -4,6 +4,7 @@ import Aufgabe6_Wuerfel.Model.WuerfelModel;
 import Aufgabe6_Wuerfel.View.WuerfelView;
 
 import java.util.concurrent.Flow.*;
+import java.util.logging.Logger;
 
 /**
  * Der Adapter organisiert die Benachrichtigungen vom Model zur View.
@@ -35,7 +36,7 @@ public class WuerfelAdapter implements Subscriber<Integer> {
      * Diese Methode wird einmalig ausgeführt, wenn sich diese Klasse irgendwo einschreibt.
      * Wenn der Adapter sich also beim Model einschreibt über die Methode addWuerfelWertSubscriber,
      * wird diese Funktion ausgeführt.
-     * Das ist ein automatischer Prozess von der Klasse Subscriber. Die Subscription ist automatisch die Klasse bei der
+     * Das ist ein automatischer Prozess von der Klasse Subscriber. Die Subscription ist automatisch die Klasse, bei der
      * sich der Adapter einschreibt → Das Model
      * @param subscription a new subscription
      */
@@ -48,14 +49,18 @@ public class WuerfelAdapter implements Subscriber<Integer> {
         //sendet er ihn direkt los.
     }
 
-    @Override
-    public void onSubscribe(Subscription subscription) {
 
-    }
-
+    /**
+     * Items die erfolgreich vom Publisher veröffentlicht werden, landen in dieser Methode.
+     * Hier muss genau wie beim onSubscribe auch der nächste Wert direkt angefragt werden, da nur dann Werte abgeholt
+     * werden, wenn eine Anfrage aussteht.
+     * @param item the item
+     */
     @Override
     public void onNext(Integer item) {
-
+        String wuerfelWert = String.valueOf(item);
+        view.getLblWuerfel().setText(wuerfelWert);  //Damit setzt der Adapter das Label in der View
+        this.subscription.request(1);   //Direkt die nächste Anfrage setzten, um den nächsten Wert sofort zu holen, sobald er vom Publisher veröffentlicht wird
     }
 
     @Override

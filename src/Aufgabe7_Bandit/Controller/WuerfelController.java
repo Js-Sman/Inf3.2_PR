@@ -1,7 +1,8 @@
-package Aufgabe6_Wuerfel.Controller;
+package Aufgabe7_Bandit.Controller;
 
-import Aufgabe6_Wuerfel.Model.WuerfelModel;
-import Aufgabe6_Wuerfel.View.WuerfelView;
+import Aufgabe7_Bandit.Model.Bandit;
+import Aufgabe7_Bandit.Model.WuerfelModel;
+import Aufgabe7_Bandit.View.WuerfelView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,15 +15,15 @@ import java.awt.event.ActionListener;
 public class WuerfelController implements ActionListener {
 
     private WuerfelView view;
-    private WuerfelModel model;
+    private Bandit bandit;
 
     /**
      * Der Controller braucht wie der Adapter nur die Referenz auf die View sowie das Model um zwischen beiden Parteien
      * zu interagieren.
      */
-    public WuerfelController(WuerfelView view, WuerfelModel model) {
+    public WuerfelController(WuerfelView view, Bandit bandit) {
         this.view = view;
-        this.model = model;
+        this.bandit = bandit;
     }
 
     public void registerEvents() {
@@ -36,11 +37,11 @@ public class WuerfelController implements ActionListener {
         //Da hier beide Events ankommen muss die Quelle erfasst werden
         Object src = e.getSource();
 
-        //Mit Start Stop Button den Thread anhalten bzw starten
+        //Mit Start Stop Button den Banditen starten bzw stoppen → Im Bandit werden die WuerfelModele geschaltet
         if (src == view.getBtnStart()) {
-            model.start();
+            bandit.start();
         } else if (src == view.getBtnStop()) {
-            model.stop();
+            bandit.stop();
 
         }
 

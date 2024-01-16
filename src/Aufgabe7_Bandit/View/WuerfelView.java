@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Aufgabe6_Wuerfel.View;
+package Aufgabe7_Bandit.View;
 
 
 public class WuerfelView extends javax.swing.JFrame
@@ -29,7 +29,7 @@ public class WuerfelView extends javax.swing.JFrame
    */
   public javax.swing.JLabel getLblWuerfel()
   {
-    return lblWuerfel;
+    return lblWuerfel1;
   }
 
   /**
@@ -49,19 +49,17 @@ public class WuerfelView extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblWuerfel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblWuerfel1 = new javax.swing.JLabel();
+        lblWuerfel2 = new javax.swing.JLabel();
+        lblWuerfel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Wuerfel Fenster");
         setMinimumSize(new java.awt.Dimension(600, 800));
-
-        lblWuerfel.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
-        lblWuerfel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblWuerfel.setText("?");
-        getContentPane().add(lblWuerfel, java.awt.BorderLayout.CENTER);
 
         btnStart.setText("Start");
         jPanel1.add(btnStart);
@@ -70,6 +68,23 @@ public class WuerfelView extends javax.swing.JFrame
         jPanel1.add(btnStop);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        lblWuerfel1.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
+        lblWuerfel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWuerfel1.setText("?");
+        jPanel2.add(lblWuerfel1);
+
+        lblWuerfel2.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
+        lblWuerfel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWuerfel2.setText("?");
+        jPanel2.add(lblWuerfel2);
+
+        lblWuerfel3.setFont(new java.awt.Font("Segoe UI", 0, 100)); // NOI18N
+        lblWuerfel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWuerfel3.setText("?");
+        jPanel2.add(lblWuerfel3);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,6 +143,21 @@ public class WuerfelView extends javax.swing.JFrame
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblWuerfel;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblWuerfel1;
+    private javax.swing.JLabel lblWuerfel2;
+    private javax.swing.JLabel lblWuerfel3;
+
+    public javax.swing.JLabel getLblWuerfel1() {
+        return lblWuerfel1;
+    }
+
+    public javax.swing.JLabel getLblWuerfel2() {
+        return lblWuerfel2;
+    }
+
+    public javax.swing.JLabel getLblWuerfel3() {
+        return lblWuerfel3;
+    }
     // End of variables declaration//GEN-END:variables
 }

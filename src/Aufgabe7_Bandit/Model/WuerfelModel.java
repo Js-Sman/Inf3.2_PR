@@ -1,4 +1,4 @@
-package Aufgabe6_Wuerfel.Model;
+package Aufgabe7_Bandit.Model;
 
 import java.util.concurrent.Flow.*;
 import java.util.concurrent.SubmissionPublisher;
@@ -13,20 +13,23 @@ import java.util.concurrent.SubmissionPublisher;
  */
 public class WuerfelModel implements Runnable {
 
-    private int wuerfelWert;
+    private Wuerfel wuerfel;    //Das Model nutzt jetzt die Wuerfel Klasse statt einen int Wert
     private boolean laufend;    //Eine Variable um den Thread ein- oder auszuschalten
     private Thread thd;     //Jeder Thread kann als KlassenAttribut betrachtet werden → Das Model hat genau einen Thread
-    private SubmissionPublisher<Integer> wuerfelWertPublisher;  //Für das Subscriber DP muss das Model einen Publisher haben
+    private SubmissionPublisher<Wuerfel> wuerfelPublisher;  //Der Publisher veröffentlicht jetzt einen Würfel
 
-    public WuerfelModel() {
-        wuerfelWert = (int) (Math.random() * 6) + 1;
+    public WuerfelModel(int wuerfelId) {
+        //Einen neuen Würfel anlegen → Der Bandit legt ein neues WuerfelModel an und vergibt dabei die id
+        int wuerfelWert = (int) (Math.random() * 6) + 1;
+        wuerfel = new Wuerfel(wuerfelId, wuerfelWert);
+
         laufend = false;
 
         thd = null;     //Es ist besser einen Thread erst dann anzulegen, wenn er gebraucht wird.
         //thd = new Thread(this)
         //thd.wait()    //Alternative
 
-        wuerfelWertPublisher = new SubmissionPublisher<>();
+        wuerfelPublisher = new SubmissionPublisher<>();
     }
 
     /**
@@ -35,8 +38,8 @@ public class WuerfelModel implements Runnable {
      *
      * @param subscriber: Ist die Klasse, die über den Publisher benachrichtigt werden will.
      */
-    public void addWuerfelWertSubscriber(Subscriber<Integer> subscriber) {
-        wuerfelWertPublisher.subscribe(subscriber); //Beim Publisher einschreiben
+    public void addWuerfelSubscriber(Subscriber<Wuerfel> subscriber) {
+        wuerfelPublisher.subscribe(subscriber); //Beim Publisher einschreiben
     }
 
     /**
@@ -96,28 +99,33 @@ public class WuerfelModel implements Runnable {
 
             //Für den Anwendungszweck soll der Thread in jedem Schritt kurz warten → einfach, um die Anzeige zu sehen
             try {
-                Thread.sleep(1000);   //Die Klasse Thread hat eine eigene sleep Funktion die innerhalb eines Thread verwendet werden sollte
+                Thread.sleep(50);   //Die Klasse Thread hat eine eigene sleep Funktion die innerhalb eines Thread verwendet werden sollte
             } catch (InterruptedException e) {
                 //Beim Arbeiten mit Threads sollte immer ein Laufzeitfehler gefangen werden → selber Grund wie beim Anhalten
                 throw new RuntimeException(e);
             }
 
-            //Die eigentliche Funktion → Würfel
-            wuerfelWert = (int) (Math.random() * 6) + 1;
+            if (laufend){
+                //Die eigentliche Funktion → Würfel
+                wuerfel.setWert((int)(Math.random() * 6) + 1);
 
-            //Den neuen Wert veröffentlichen
-            wuerfelWertPublisher.submit(wuerfelWert);   //Damit liegt der neue Wert bereit, um von den Subscribern abgeholt zu werden.
+                //Den neuen Wert veröffentlichen
+                wuerfelPublisher.submit(wuerfel);   //Damit wird der wuerfel veröffentlicht
 
-
+            }
 
             /*
             Note:
-            Die Werte landen hier auf einem Stack und die Subscriber holen sich die Werte von diesem Stack.
-            Deswegen muss der Subscriber auch immer sofort den nächsten Wert anfragen um immer den aktuellsten Wert zu holen.
+            Die laufend Variable kann zu jeder Zeit geschaltet werden. Der Thread läuft aber in dem Moment noch und
+            befindet sich in der Schleife, in der die Zahlen der Würfel generiert und geschrieben werden.
+            Daher muss in dem Fall das Setzen und Publishen der Werte zusätzlich mit der laufen Variable abgefangen werden.
              */
         }
 
 
     }
 
+    public int getWuerfelWert() {
+        return wuerfel.getWert();
+    }
 }

@@ -1,6 +1,7 @@
 package Aufgabe6_Wuerfel;
 
 import Aufgabe6_Wuerfel.View.MainWindow;
+import Aufgabe6_Wuerfel.View.WuerfelView;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -12,11 +13,10 @@ public class Start
    */
   private Start()
   {
-    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
-    view.registerEvents();  //Events registrieren
+    WuerfelView view = new WuerfelView(); //Gui im Designer gebaut
 
-    //Fenster Parameter setzen, kann auch im Fenster ctor passieren
-    view.setSize(300,300);
+
+
     view.setVisible(true);
   }
 

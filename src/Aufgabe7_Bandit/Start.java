@@ -1,9 +1,10 @@
-package Aufgabe6_Wuerfel;
+package Aufgabe7_Bandit;
 
-import Aufgabe6_Wuerfel.Controller.WuerfelAdapter;
-import Aufgabe6_Wuerfel.Controller.WuerfelController;
-import Aufgabe6_Wuerfel.Model.WuerfelModel;
-import Aufgabe6_Wuerfel.View.WuerfelView;
+import Aufgabe7_Bandit.Controller.WuerfelAdapter;
+import Aufgabe7_Bandit.Controller.WuerfelController;
+import Aufgabe7_Bandit.Model.Bandit;
+import Aufgabe7_Bandit.Model.WuerfelModel;
+import Aufgabe7_Bandit.View.WuerfelView;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -16,14 +17,14 @@ public class Start
   private Start()
   {
     WuerfelView view = new WuerfelView(); //Gui im Designer gebaut
-    WuerfelModel model = new WuerfelModel();
+    Bandit bandit = new Bandit(); //Der Bandit ist jetzt das Haupt Model und verwaltet die Würfelmodel
 
     //Adapter anlegen
-    WuerfelAdapter adapter = new WuerfelAdapter(view, model);
-    model.addWuerfelWertSubscriber(adapter);  //Der Adapter muss sich im Model einschreiben
+    WuerfelAdapter adapter = new WuerfelAdapter(view, bandit);
+    bandit.addWuerfelWertSubscriber(adapter);  //Der Adapter muss sich im Model einschreiben
 
     //Controller anlegen
-    WuerfelController controller = new WuerfelController(view, model);
+    WuerfelController controller = new WuerfelController(view, bandit);
     controller.registerEvents();
 
 

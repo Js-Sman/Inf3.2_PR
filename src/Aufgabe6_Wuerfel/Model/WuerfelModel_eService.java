@@ -1,6 +1,9 @@
 package Aufgabe6_Wuerfel.Model;
 
-import java.util.concurrent.Flow.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Flow.Subscriber;
 import java.util.concurrent.SubmissionPublisher;
 
 /**
@@ -9,22 +12,26 @@ import java.util.concurrent.SubmissionPublisher;
  * <p>
  * Um eine Klasse Thread fähig zu machen, muss sie die Klasse Runnable implementieren.
  * <p>
- * In dieser Klasse wird ein Thread verwendet und mit wait bzw notify start und stop realisiert.
+ * In dieser Klasse wird ein eService verwendet und mit wait bzw notify start und stop realisiert.
  */
-public class WuerfelModel implements Runnable {
+public class WuerfelModel_eService implements Runnable {
 
     private int wuerfelWert;
     private boolean laufend;    //Eine Variable um den Thread ein- oder auszuschalten
     private Thread thd;     //Jeder Thread kann als KlassenAttribut betrachtet werden → Das Model hat genau einen Thread
+
+    private ExecutorService eService;   //Ein eService ist wie ein Thread nur mit mehr inbuilt Möglichkeiten
     private SubmissionPublisher<Integer> wuerfelWertPublisher;  //Für das Subscriber DP muss das Model einen Publisher haben
 
-    public WuerfelModel() {
+    public WuerfelModel_eService() {
         wuerfelWert = (int) (Math.random() * 6) + 1;
         laufend = false;
 
         thd = null;     //Es ist besser einen Thread erst dann anzulegen, wenn er gebraucht wird.
         //thd = new Thread(this)
         //thd.wait()    //Alternative
+
+        eService = null;
 
         wuerfelWertPublisher = new SubmissionPublisher<>();
     }
@@ -47,18 +54,21 @@ public class WuerfelModel implements Runnable {
     public void start() {
         laufend = true;
 
-        //Neuen Thread anlegen und zu diesem Thread zuweisen
-        if (thd == null) {
-            thd = new Thread(this); //Beim Initialisieren eines Threads muss angegeben werden welchem Thread-Objekt der neue Thread zugewiesen werden soll
-            thd.start();    //Diese Methode startet die run Funktion
+
+        if (eService==null){
+            //Um einen Single Thread zu realisieren, muss von der Klasse Executors ein neuer Single-Thread geholt werden
+            eService = Executors.newSingleThreadExecutor();
+
+            //Mit execute wird eine Funktion in einem Thread ausgeführt.
+            //Ohne weitere angabe bezieht sich this immer auf die run Methode.
+            //Es können aber alle Klassenmehtoden angegeben werden und der eService wird diese Methode als Thread ausführen
+            eService.execute(this);
         }
 
-        //Thread im Wartemodus aufwecken
-        synchronized (thd) {
-            //Diese Methode muss immer in einem synchronisieren Block abgehandelt werden.
-            //Das sorgt dafür, dass der Thread nicht abstürzt, wenn er im Moment des aufrufs was anderes macht.
-            thd.notify();
+        synchronized (eService){
+            eService.notify();
         }
+
 
     }
 
@@ -83,10 +93,10 @@ public class WuerfelModel implements Runnable {
             //In dieser Schleife arbeitet der Thread durchgehend und wird nur in den Wartezustand versetzt,
             //wenn die laufend Variable zwischenzeitlich umgestellt wurde.
             if (!laufend) {
-                synchronized (thd) {
-                    //Da die Funktion auch wieder direkt auf dem Thread zugreift, muss sie auch auf den Thread synchronisiert sein
+                synchronized (eService) {
+                    //Hier muss jetzt der eService Synchronisiert werden
                     try {
-                        thd.wait(); //Damit wird die run Methode des Threads angehalten
+                        eService.wait(); //Damit wird die run Methode angehalten
                     } catch (InterruptedException e) {
                         //Das Anhalten eines Threads kann immer einen Laufzeitfehler verursachen, wenn der Thread fest hängt
                         throw new RuntimeException(e);
@@ -96,7 +106,7 @@ public class WuerfelModel implements Runnable {
 
             //Für den Anwendungszweck soll der Thread in jedem Schritt kurz warten → einfach, um die Anzeige zu sehen
             try {
-                Thread.sleep(1000);   //Die Klasse Thread hat eine eigene sleep Funktion die innerhalb eines Thread verwendet werden sollte
+                Thread.sleep(1000);   //Die Klasse Thread kann auch für einen eService verwendet werden, weil ein eService auch nur einen Thread verwaltet
             } catch (InterruptedException e) {
                 //Beim Arbeiten mit Threads sollte immer ein Laufzeitfehler gefangen werden → selber Grund wie beim Anhalten
                 throw new RuntimeException(e);

@@ -1,6 +1,7 @@
 package Aufgabe6_Wuerfel.Controller;
 
-import Aufgabe6_Wuerfel.Model.WuerfelModel;
+import Aufgabe6_Wuerfel.Model.WuerfelModel_Thread;
+import Aufgabe6_Wuerfel.Model.WuerfelModel_eService;
 import Aufgabe6_Wuerfel.View.WuerfelView;
 
 import java.awt.event.ActionEvent;
@@ -14,13 +15,13 @@ import java.awt.event.ActionListener;
 public class WuerfelController implements ActionListener {
 
     private WuerfelView view;
-    private WuerfelModel model;
+    private WuerfelModel_eService model;
 
     /**
      * Der Controller braucht wie der Adapter nur die Referenz auf die View sowie das Model um zwischen beiden Parteien
      * zu interagieren.
      */
-    public WuerfelController(WuerfelView view, WuerfelModel model) {
+    public WuerfelController(WuerfelView view, WuerfelModel_eService model) {
         this.view = view;
         this.model = model;
     }

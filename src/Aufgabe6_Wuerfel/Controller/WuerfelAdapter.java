@@ -1,10 +1,10 @@
 package Aufgabe6_Wuerfel.Controller;
 
-import Aufgabe6_Wuerfel.Model.WuerfelModel;
+import Aufgabe6_Wuerfel.Model.WuerfelModel_Thread;
+import Aufgabe6_Wuerfel.Model.WuerfelModel_eService;
 import Aufgabe6_Wuerfel.View.WuerfelView;
 
 import java.util.concurrent.Flow.*;
-import java.util.logging.Logger;
 
 /**
  * Der Adapter organisiert die Benachrichtigungen vom Model zur View.
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class WuerfelAdapter implements Subscriber<Integer> {
 
-    private WuerfelModel model;
+    private WuerfelModel_eService model;
     private WuerfelView view;
 
     private Subscription subscription;
@@ -26,7 +26,7 @@ public class WuerfelAdapter implements Subscriber<Integer> {
     /**
      * Der Adapter braucht nur eine Referenz zu Model und View um die daten auszutauschen
      */
-    public WuerfelAdapter(WuerfelView view, WuerfelModel model) {
+    public WuerfelAdapter(WuerfelView view, WuerfelModel_eService model) {
         this.view = view;
         this.model = model;
     }

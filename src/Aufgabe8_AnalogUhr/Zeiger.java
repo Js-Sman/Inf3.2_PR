@@ -14,7 +14,6 @@ public class Zeiger extends JComponent implements Runnable {
 
     private final long delay; //Die Zeit, die der Thread wartet, um alpha zu erhöhen.
     private final int laenge; //Die Zeigerlänge
-    private float dicke; //Die Zeigerdicke
 
 
     private double alpha;   //Drehwinkel des Zeigers

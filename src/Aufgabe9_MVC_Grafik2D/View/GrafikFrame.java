@@ -55,29 +55,41 @@ public class GrafikFrame extends JComponent implements Printable {
      * Die paintComponent() Methode ist Teil eines JComponents.
      * Sie wird immer dann automatisch aufgerufen, wenn sich der JComponent verändert → z.B. vergrößern oder verkleinern.
      * Diese Methode kann mit repaint() manuell getriggert werden.
-     *
+     * <p>
      * Hier werden direkt die Grafikdaten der Komponente verwendet und automatisch wieder freigegeben → deswegen muss man hier kein dispose() aufrufen.
      */
     @Override
     public void paintComponent(Graphics g) {
         //Wenn das Fenster größer gezogen wird, sollen alle bereits bestehenden Figuren aktualisiert werden.
+        if (model != null) {
+            super.paintComponent(g);    //Super Klasse muss initialisiert werden
+            Graphics2D g2 = (Graphics2D) g; //Die Grafikdaten der Komponente auf eine neuere Version casten
 
-        super.paintComponent(g);    //Super Klasse muss initialisiert werden
-        Graphics2D g2 = (Graphics2D) g; //Die Grafikdaten der Komponente auf eine neuere Version casten
+            //Alle Figuren nochmal Zeichnen
+            model.getFiguren().forEach(figur ->
+            {
+                figur.zeichnen(g2);
+            });
 
-        //Alle Figuren nochmal Zeichnen
-        model.getFiguren().forEach(figur ->
-        {
-            figur.zeichnen(g2);
-        });
+        }
 
     }
-
 
 
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        return 0;
+        Graphics2D g2p = (Graphics2D) graphics;
+        if (pageIndex == 0) {
+            g2p.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+            g2p.scale(pageFormat.getImageableWidth() / this.getWidth(),
+                    pageFormat.getImageableHeight() / this.getHeight());
+            super.print(g2p);
+            return Printable.PAGE_EXISTS;
+        } else {
+            return Printable.NO_SUCH_PAGE; // wichtig sonst Papiervernichtung
+        }
     }
 
 }
+
+

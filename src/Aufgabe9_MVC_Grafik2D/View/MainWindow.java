@@ -11,7 +11,7 @@ package Aufgabe9_MVC_Grafik2D.View;
 public class MainWindow extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainWindow
+     * Creates new form MeinWindow
      */
     public MainWindow() {
         initComponents();
@@ -26,9 +26,10 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         jToolBar1 = new javax.swing.JToolBar();
-        btnSave = new javax.swing.JButton();
         btnOpen = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
         zeichenflaeche = new Aufgabe9_MVC_Grafik2D.View.GrafikFrame();
@@ -37,6 +38,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Open24.gif"))); // NOI18N
+        btnOpen.setFocusable(false);
+        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnOpen);
+
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Save24.gif"))); // NOI18N
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -47,16 +55,13 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jToolBar1.add(btnSave);
 
-        btnOpen.setFocusable(false);
-        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnOpen);
-
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete24.gif"))); // NOI18N
         btnDelete.setFocusable(false);
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnDelete);
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Print24.gif"))); // NOI18N
         btnPrint.setFocusable(false);
         btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrint.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -98,6 +103,7 @@ public class MainWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -112,6 +118,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSave;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JToolBar jToolBar1;
     private Aufgabe9_MVC_Grafik2D.View.GrafikFrame zeichenflaeche;
 
@@ -129,6 +136,10 @@ public class MainWindow extends javax.swing.JFrame {
 
     public javax.swing.JButton getBtnSave() {
         return btnSave;
+    }
+
+    public javax.swing.JFileChooser getjFileChooser1() {
+        return jFileChooser1;
     }
 
     public GrafikFrame getZeichenflaeche() {

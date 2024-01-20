@@ -1,6 +1,7 @@
 package Aufgabe9_MVC_Grafik2D;
 
 import Aufgabe9_MVC_Grafik2D.Controller.GrafikController;
+import Aufgabe9_MVC_Grafik2D.Controller.UIController;
 import Aufgabe9_MVC_Grafik2D.Model.GrafikModel;
 import Aufgabe9_MVC_Grafik2D.View.GrafikFrame;
 import Aufgabe9_MVC_Grafik2D.View.MainWindow;
@@ -15,12 +16,15 @@ public class Start
   private Start()
   {
     MainWindow view = new MainWindow(); //Neues Fenster mit Namen initialisieren
-    GrafikModel model = new GrafikModel();
     GrafikFrame frame = view.getZeichenflaeche();
+    GrafikModel model = new GrafikModel(frame);
     frame.setModel(model);
 
     GrafikController grafikController = new GrafikController(frame);
     grafikController.registerEvents();
+
+    UIController uiController = new UIController(model, view);
+    uiController.registerEvents();
 
 
     //Fenster Parameter setzen, kann auch im Fenster ctor passieren

@@ -2,18 +2,20 @@ package Aufgabe9_MVC_Grafik2D.Model;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * Eine Figur ist prinzipiell nur eine Datenklasse da sie eine ArrayListe an Punkten hält.
  * Eine Figur zeichnet sich selbst, indem sie alle Punkte in ihrer ArrayListe mit einer Linie verbindet.
+ *
+ * Da eine Figur zum Speicher und Öffnen serializiert werden muss, muss die Klasse zwingend das entsprechende Interface implementieren
  */
-public class Figur {
+public class Figur implements Serializable {
 
     private ArrayList<Point> punkte;
     private Line2D.Float line;
-    private BasicStroke stift;
+
 
     //Zwei Point variablen um die Punkte Liste verkettet zu zeichnen
     private Point to;
@@ -23,7 +25,6 @@ public class Figur {
     public Figur() {
         this.punkte = new ArrayList<>();
         this.line = new Line2D.Float();
-        this.stift = new BasicStroke(3);
     }
 
     public void addPoint(Point point){
@@ -51,7 +52,7 @@ public class Figur {
                 to = from;  //Für den nächsten Punkt ist das Ziel der aktuelle Punkt
 
                 //Die Linienstärke setzen
-                g2.setStroke(stift);
+                g2.setStroke(new BasicStroke(3));
 
                 //Die aufgebaute Linie zeichnen
                 g2.draw(line);

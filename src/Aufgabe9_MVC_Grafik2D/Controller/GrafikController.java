@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  */
 public class GrafikController extends MouseAdapter implements MouseMotionListener {
 
-    Logger logger = Logger.getLogger("MVC_Grafik");
     private GrafikFrame frame;
 
     public GrafikController(GrafikFrame frame) {
@@ -27,14 +26,23 @@ public class GrafikController extends MouseAdapter implements MouseMotionListene
         frame.addMouseListener(this);   //Für das mouseReleased Event
     }
 
+    /**
+     * Dieses Event wird gefeuert, sobald die Maus geklickt wird. Danach wird die Funktion
+     * automatisch so lange im Loop aufgerufen, bis die Maus losgelassen wird.
+     */
     @Override
     public void mouseDragged(MouseEvent evt){
+        //Immer die aktuelle Maus position abfragen
         Point point = evt.getPoint();
-        frame.addPointToFigure(point);
+        frame.addPointToCurrentFigure(point);
     }
 
     @Override
     public void mouseReleased(MouseEvent evt){
+        /*
+        Beim Los lassen der Maus wird die Figur beendet → Führt dazu, dass im Model die Figur
+        in die Figuren Liste übernommen wird und eine neue Figur angelegt wird
+         */
         frame.endFigure();
     }
 

@@ -1,6 +1,7 @@
-package Aufgabe_Init;
+package Aufgabe10_ChatProgramm;
 
-import Aufgabe_Init.View.MainWindow;
+import Aufgabe10_ChatProgramm.Controller.CommandController;
+import Aufgabe10_ChatProgramm.View.MainWindow;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -12,12 +13,23 @@ public class Start
    */
   private Start()
   {
-    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
-    view.registerEvents();  //Events registrieren
+    MainWindow view = new MainWindow(); //Im Gui Designer erstellt
+
+    //Kommandos verknüpfen und Kontroller setup
+    CommandController controller = new CommandController(view);
+    controller.registerEvents();
+    controller.registerCommands();
+
+
 
     //Fenster Parameter setzen, kann auch im Fenster ctor passieren
-    view.setSize(300,300);
+    view.setSize(600,450);
     view.setVisible(true);
+
+    //Dialog Panel öffnen
+    view.getjOptionDialog().setVisible(true);
+    //Mit Modal dafür sorgen, dass das MainWindow blockiert ist, solange der Dialog noch offen ist.
+    view.getjOptionDialog().setModal(true);
   }
 
   /**

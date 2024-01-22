@@ -1,4 +1,4 @@
-package Aufgabe10_ChatProgramm.Controller;
+package Aufgabe10_ChatProgram.Controller;
 
 import java.io.IOException;
 

@@ -1,6 +1,6 @@
-package Aufgabe10_ChatProgramm.Controller;
+package Aufgabe10_ChatProgram.Controller;
 
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgram.View.MainWindow;
 
 import java.util.concurrent.Flow.*;
 

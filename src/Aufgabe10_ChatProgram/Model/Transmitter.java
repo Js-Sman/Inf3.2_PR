@@ -1,7 +1,7 @@
-package Aufgabe10_ChatProgramm.Model;
+package Aufgabe10_ChatProgram.Model;
 
-import Aufgabe10_ChatProgramm.Controller.ReceiveAdapter;
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgram.Controller.ReceiveAdapter;
+import Aufgabe10_ChatProgram.View.MainWindow;
 
 import java.io.*;
 import java.net.Socket;

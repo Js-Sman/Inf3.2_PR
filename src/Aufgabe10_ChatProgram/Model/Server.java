@@ -1,6 +1,6 @@
-package Aufgabe10_ChatProgramm.Model;
+package Aufgabe10_ChatProgram.Model;
 
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgram.View.MainWindow;
 
 import java.io.IOException;
 import java.net.ServerSocket;

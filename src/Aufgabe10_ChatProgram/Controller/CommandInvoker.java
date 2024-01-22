@@ -1,9 +1,5 @@
-package Aufgabe10_ChatProgramm.Controller;
+package Aufgabe10_ChatProgram.Controller;
 
-import Aufgabe10_ChatProgramm.Controller.Commands.CommandConnect;
-import Aufgabe10_ChatProgramm.Controller.Commands.CommandSend;
-
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;

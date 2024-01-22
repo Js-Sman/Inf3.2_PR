@@ -1,7 +1,7 @@
-package Aufgabe10_ChatProgramm;
+package Aufgabe10_ChatProgram;
 
-import Aufgabe10_ChatProgramm.Controller.CommandController;
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgram.Controller.CommandController;
+import Aufgabe10_ChatProgram.View.MainWindow;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

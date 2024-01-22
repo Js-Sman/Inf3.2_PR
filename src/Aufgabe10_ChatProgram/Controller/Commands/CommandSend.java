@@ -1,8 +1,8 @@
-package Aufgabe10_ChatProgramm.Controller.Commands;
+package Aufgabe10_ChatProgram.Controller.Commands;
 
-import Aufgabe10_ChatProgramm.Controller.CommandInterface;
-import Aufgabe10_ChatProgramm.Model.Transmitter;
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgram.Controller.CommandInterface;
+import Aufgabe10_ChatProgram.Model.Transmitter;
+import Aufgabe10_ChatProgram.View.MainWindow;
 
 public class CommandSend implements CommandInterface {
 

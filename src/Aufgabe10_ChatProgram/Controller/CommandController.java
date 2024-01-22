@@ -1,9 +1,8 @@
-package Aufgabe10_ChatProgramm.Controller;
+package Aufgabe10_ChatProgram.Controller;
 
-import Aufgabe10_ChatProgramm.Controller.Commands.CommandConnect;
-import Aufgabe10_ChatProgramm.Controller.Commands.CommandSend;
-import Aufgabe10_ChatProgramm.Model.Transmitter;
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgram.Controller.Commands.CommandConnect;
+import Aufgabe10_ChatProgram.Controller.Commands.CommandSend;
+import Aufgabe10_ChatProgram.View.MainWindow;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

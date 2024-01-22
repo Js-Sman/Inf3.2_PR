@@ -12,11 +12,9 @@ public class Start
   private Start()
   {
     //Alle Design spezifischen Eigenschaften werden im Designer beschrieben 
-    MainWindow view = new MainWindow(); //AutoGui Fenster hat einen leeren ctor -> Eigenschafften werden im Designer gesetzt
-    
-    //view.registerEvents();  //Events registrieren
-    
-    //Die view muss trotzdem von der Start Klasse aus sichtbar gesetzt werden
+    MainWindow view = new MainWindow(); //AutoGui Fenster hat einen leeren ctor → Eigenschaften werden im Designer gesetzt
+
+    //Die view muss trotzdem von der Startklasse aus sichtbar gesetzt werden
     view.setVisible(true);
 
   }

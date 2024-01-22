@@ -10,8 +10,10 @@ public class Start {
      */
     public static void main(String[] args) throws InterruptedException {
 
+        //Das Monitorbeispiel soll verdeutlichen wie die Synchronization von Threads abläuft
         execute_Monitor_example();
 
+        //Das Workerbeispiel soll veranschaulichen wie die Synchronization auf verschiedene Objekte abläuft und welche auswirkungen es hat.
         //execute_Worker_example();
 
 

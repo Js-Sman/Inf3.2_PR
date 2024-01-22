@@ -1,5 +1,6 @@
-package Aufgabe10_ChatProgramm.Model;
+package Aufgabe10_ChatProgramm.Model.Com;
 
+import Aufgabe10_ChatProgramm.Model.ChatModel;
 import Aufgabe10_ChatProgramm.View.MainWindow;
 
 import java.io.IOException;
@@ -10,8 +11,7 @@ public class Server extends Transmitter {
 
     Logger lg = Logger.getLogger("Netz");
 
-    public Server(MainWindow view) throws IOException {
-        super(view);
+    public Server() throws IOException {
         connect();
         initIO();
     }

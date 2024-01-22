@@ -1,16 +1,18 @@
 package Aufgabe10_ChatProgramm.Controller;
 
-import Aufgabe10_ChatProgramm.View.MainWindow;
+import Aufgabe10_ChatProgramm.Model.ChatModel;
+import Aufgabe10_ChatProgramm.Model.Grafik.Figure;
 
-import java.util.concurrent.Flow.*;
+import java.util.concurrent.Flow.Subscriber;
+import java.util.concurrent.Flow.Subscription;
 
-public class ReceiveAdapter implements Subscriber<String> {
+public class ReceiveAdapter implements Subscriber<Figure> {
 
-    private MainWindow view;
+    private final ChatModel chatModel;
     private Subscription subscription;
 
-    public ReceiveAdapter(MainWindow view) {
-        this.view = view;
+    public ReceiveAdapter(ChatModel chatModel) {
+        this.chatModel = chatModel;
     }
 
     @Override
@@ -20,8 +22,8 @@ public class ReceiveAdapter implements Subscriber<String> {
     }
 
     @Override
-    public void onNext(String item) {
-        view.getTaChatView().append(item+"\n");
+    public void onNext(Figure item) {
+        chatModel.addReceivedFigure(item);
         subscription.request(1);
     }
 

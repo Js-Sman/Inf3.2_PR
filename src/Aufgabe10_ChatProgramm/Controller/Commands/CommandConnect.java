@@ -1,9 +1,9 @@
 package Aufgabe10_ChatProgramm.Controller.Commands;
 
 import Aufgabe10_ChatProgramm.Controller.CommandInterface;
-import Aufgabe10_ChatProgramm.Model.Client;
-import Aufgabe10_ChatProgramm.Model.Server;
-import Aufgabe10_ChatProgramm.Model.Transmitter;
+import Aufgabe10_ChatProgramm.Model.ChatModel;
+import Aufgabe10_ChatProgramm.Model.Com.Client;
+import Aufgabe10_ChatProgramm.Model.Com.Server;
 import Aufgabe10_ChatProgramm.View.MainWindow;
 
 import java.io.IOException;
@@ -11,10 +11,10 @@ import java.io.IOException;
 public class CommandConnect implements CommandInterface {
 
     private MainWindow view;
-    private CommandSend commandSend;
-    public CommandConnect(MainWindow view, CommandSend command) {
+    private ChatModel model;
+    public CommandConnect(MainWindow view, ChatModel model) {
         this.view = view;
-        this.commandSend = command;
+        this.model = model;
     }
 
     /**
@@ -25,7 +25,7 @@ public class CommandConnect implements CommandInterface {
 
         if(view.getRbtnServer().isSelected()){
             try{
-                commandSend.setTransmitter(new Server(view));
+                model.setTransmitter(new Server());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -33,7 +33,7 @@ public class CommandConnect implements CommandInterface {
 
         if(view.getRbtnClient().isSelected()){
             try{
-                commandSend.setTransmitter(new Client(view));
+                model.setTransmitter(new Client());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

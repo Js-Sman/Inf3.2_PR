@@ -1,6 +1,8 @@
-package Aufgabe10_ChatProgramm.Model;
+package Aufgabe10_ChatProgramm.Model.Com;
 
 import Aufgabe10_ChatProgramm.Controller.ReceiveAdapter;
+import Aufgabe10_ChatProgramm.Model.ChatModel;
+import Aufgabe10_ChatProgramm.Model.Grafik.Figure;
 import Aufgabe10_ChatProgramm.View.MainWindow;
 
 import java.io.*;
@@ -25,27 +27,25 @@ public class Transmitter implements Runnable {
 
 
     protected Socket socket;
-    protected BufferedReader reader;
-    protected PrintWriter writer;
+    protected ObjectInputStream reader;
+    protected ObjectOutputStream writer;
 
-    private String nachricht;
-    private SubmissionPublisher<String> nachrichtenPublisher;
+    private Figure receivedFigure;
+    private SubmissionPublisher<Figure> figurePublisher;
 
-    private MainWindow view;
+    private ChatModel chatModel;
 
-    public Transmitter(MainWindow view) {
-        this.view = view;
-
-        //Neue ReceiveAdapter erzeugen und direkt als Subscriber in den nachrichtenPublisher eintragen
-        nachrichtenPublisher = new SubmissionPublisher<>();
-        addNachrichtenSubscrpition(new ReceiveAdapter(view));
-
+    public Transmitter() {
         //Einen neuen Thread aufbauen
         executorService = Executors.newSingleThreadExecutor();
+
+
+        //Neue ReceiveAdapter erzeugen
+        this.figurePublisher = new SubmissionPublisher<>();
     }
 
-    public void addNachrichtenSubscrpition(Subscriber<String> subscriber){
-        nachrichtenPublisher.subscribe(subscriber);
+    public void addFigurenSubscription(Subscriber<Figure> subscriber) {
+        figurePublisher.subscribe(subscriber);
     }
 
     public void initIO() {
@@ -54,11 +54,13 @@ public class Transmitter implements Runnable {
             InputStream is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
 
-            InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-            OutputStreamWriter osr = new OutputStreamWriter(os, "UTF-8");
+            /*
+             Object reader/writer sind immer gepuffert daher kann man sie
+             direkt aus den SocketStreams erzeugen
+             */
+            writer = new ObjectOutputStream(os);    //Immer der Writer vor dem Reader initialisieren!
+            reader = new ObjectInputStream(is);
 
-            reader = new BufferedReader(isr);
-            writer = new PrintWriter(osr);
             lg.info("Reader / Writer Initialisierung abgeschlossen");
 
             //Die run Methode starten
@@ -75,19 +77,12 @@ public class Transmitter implements Runnable {
         lg.info("Starte Chat");
 
         //Dieser Thread soll durchgehend laufen und die WebSocket auslesen
-        while (true){
-            try {
-                //Die Websocket auslesen
-                nachricht = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        while (true) {
+            //Die Websocket auslesen
+            receivedFigure = receive();
+            //Erhaltene Figur für den ReceiveAdapter veröffentlichen
+            figurePublisher.submit(receivedFigure);
 
-            //Wenn eine Nachricht ausgelesen wurde, wird diese Nachricht veröffentlicht → an den ReceiveAdapter
-            if(!nachricht.isEmpty()){
-                nachricht = "Erhalten: " + nachricht;
-                nachrichtenPublisher.submit(nachricht);
-            }
 
         }
 
@@ -97,15 +92,31 @@ public class Transmitter implements Runnable {
      * Hier wird eine Textnachricht an eine WebSocket gesendet und gleichzeitig im eigenen View angezeigt.
      * Dazu muss die Nachricht über den writer an die Socket geschrieben werden und vom nachrichtenPublisher veröffentlicht werden.
      */
-    public void send(String nachricht){
+    public void send(Figure figure) throws IOException {
 
         //Nachricht an WebSocket übermitteln
-        writer.println(nachricht);
+        writer.writeObject(figure);
         writer.flush();     //Jeder StreamWriter muss geflushed werden um die Daten, die auf ihn geschrieben wurden tatsächlich weiterzuleiten
 
-        //Nachricht in den eigenen View Schreiben
-        this.nachricht = "Gesendet: " + nachricht;
-        nachrichtenPublisher.submit(this.nachricht);
+    }
+
+    public synchronized Figure receive() {
+
+        Object receivedObject;
+        Figure figure = new Figure();
+        try {
+            receivedObject = reader.readObject();
+
+            if (receivedObject instanceof Figure) {
+                lg.info("Figur erhalten");
+                figure = (Figure) receivedObject;
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            lg.info(ex.getMessage());
+        }
+
+        return figure;
 
     }
+
 }

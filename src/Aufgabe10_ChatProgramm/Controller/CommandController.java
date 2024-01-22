@@ -2,7 +2,7 @@ package Aufgabe10_ChatProgramm.Controller;
 
 import Aufgabe10_ChatProgramm.Controller.Commands.CommandConnect;
 import Aufgabe10_ChatProgramm.Controller.Commands.CommandSend;
-import Aufgabe10_ChatProgramm.Model.Transmitter;
+import Aufgabe10_ChatProgramm.Model.ChatModel;
 import Aufgabe10_ChatProgramm.View.MainWindow;
 
 import java.awt.*;
@@ -20,11 +20,20 @@ public class CommandController implements ActionListener {
     Logger lg = Logger.getLogger("Netz");
 
     private MainWindow view;
+    private ChatModel model;
     private CommandInvoker invoker;
 
-    public CommandController(MainWindow view){
+    CommandSend commandSend;
+    CommandConnect commandConnect;
+
+    public CommandController(MainWindow view, ChatModel model){
         this.view = view;
+        this.model = model;
         this.invoker = new CommandInvoker();
+
+        //Die Kommandos schon im ctor Initialisieren für übersichtlichkeit in der registerCommands Methode
+        this.commandSend = new CommandSend(model);
+        this.commandConnect = new CommandConnect(view, model);
     }
 
     /**
@@ -33,7 +42,7 @@ public class CommandController implements ActionListener {
      */
     public void registerEvents(){
         view.getBtnConnect().addActionListener(this);
-        view.getTfChatField().addActionListener(this);  //Jedes jTextField hat eine Action die bei "Enter" feuert
+        view.getBtnSend().addActionListener(this);  //Jedes jTextField hat eine Action die bei "Enter" feuert
     }
 
     /**
@@ -42,11 +51,9 @@ public class CommandController implements ActionListener {
      *
      */
     public  void registerCommands(){
-        CommandSend commandSend = new CommandSend(view);
-        //Beide Commandos interagieren mit der View daher muss diese im Konstrukor mitgegeben werden.
-        //Der Transmitter wird erst Initialisiert wenn das Connect Kommando ausgeführt wird → erst dann kann die Referenz für das Senden Kommando gesetzt werden
-        invoker.addCommand(view.getBtnConnect(),new CommandConnect(view, commandSend));
-        invoker.addCommand(view.getTfChatField(),commandSend);
+        //Die Kommandos mit den Komponenten aus der view verknüpfen
+        invoker.addCommand(view.getBtnConnect(),commandConnect);
+        invoker.addCommand(view.getBtnSend(),commandSend);
     }
 
     @Override

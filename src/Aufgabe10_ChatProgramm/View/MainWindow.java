@@ -32,13 +32,10 @@ public class MainWindow extends javax.swing.JFrame {
         rbtnClient = new javax.swing.JRadioButton();
         btnConnect = new javax.swing.JButton();
         btnGroupServerClient = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taChatView = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jLabel1 = new javax.swing.JLabel();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        tfChatField = new javax.swing.JTextField();
+        btnSend = new javax.swing.JButton();
+        grafikFrame = new Aufgabe10_ChatProgramm.View.GrafikFrame();
+        lblHeadline = new javax.swing.JLabel();
 
         jOptionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jOptionDialog.setTitle("Teilenhmer Auswahl");
@@ -72,35 +69,21 @@ public class MainWindow extends javax.swing.JFrame {
         setTitle("Chat Fenster");
         setPreferredSize(new java.awt.Dimension(600, 550));
 
-        taChatView.setColumns(20);
-        taChatView.setRows(5);
-        jScrollPane1.setViewportView(taChatView);
-
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel1.add(filler1);
-
-        jLabel1.setText("Nachricht:");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(jLabel1);
-        jPanel1.add(filler2);
-
-        tfChatField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfChatFieldActionPerformed(evt);
-            }
-        });
-        jPanel1.add(tfChatField);
+        btnSend.setText("Senden");
+        btnSend.setMargin(new java.awt.Insets(5, 14, 5, 14));
+        jPanel1.add(btnSend);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(grafikFrame, java.awt.BorderLayout.CENTER);
+
+        lblHeadline.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblHeadline.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHeadline.setText("Zeichne und erweitere eine Figur");
+        lblHeadline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lblHeadline, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tfChatFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfChatFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfChatFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,17 +123,14 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConnect;
     private javax.swing.ButtonGroup btnGroupServerClient;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnSend;
+    private Aufgabe10_ChatProgramm.View.GrafikFrame grafikFrame;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JDialog jOptionDialog;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblHeadline;
     private javax.swing.JRadioButton rbtnClient;
     private javax.swing.JRadioButton rbtnServer;
-    private javax.swing.JTextArea taChatView;
-    private javax.swing.JTextField tfChatField;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -184,19 +164,20 @@ public class MainWindow extends javax.swing.JFrame {
         this.rbtnServer = rbtnServer;
     }
 
-    public javax.swing.JTextArea getTaChatView() {
-        return taChatView;
+
+    public javax.swing.ButtonGroup getBtnGroupServerClient() {
+        return btnGroupServerClient;
     }
 
-    public void setTaChatView(javax.swing.JTextArea taChatView) {
-        this.taChatView = taChatView;
+    public javax.swing.JButton getBtnSend() {
+        return btnSend;
     }
 
-    public javax.swing.JTextField getTfChatField() {
-        return tfChatField;
+    public GrafikFrame getGrafikFrame() {
+        return grafikFrame;
     }
 
-    public void setTfChatField(javax.swing.JTextField tfChatField) {
-        this.tfChatField = tfChatField;
+    public javax.swing.JLabel getLblHeadline() {
+        return lblHeadline;
     }
 }

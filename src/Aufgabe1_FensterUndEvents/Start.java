@@ -17,8 +17,9 @@ public class Start
     //Fenster Parameter setzen, kann auch im Fenster ctor passieren
     view.setSize(300,300);
 
-    //Überschreibt die Close Option vom ctor
-    view.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); //Um selbst auf das schließen zu reagieren → In der WindowClosing Methode
+    //Überschreibt die Close Option vom ctor.
+    //Um selbst auf das schließen zu reagieren → In der WindowClosing Methode
+    view.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     view.setVisible(true);
   }
 

@@ -87,7 +87,11 @@ public class MainWindow extends JFrame implements MouseListener, WindowListener 
     public void windowClosing(WindowEvent e) {
         //Für Benutzer abfragen immer einen ConfirmDialog verwende
         //Optionen werden als int von der Form zurückgegeben
-        int result = JOptionPane.showConfirmDialog(this,"Wollen Sie wirklich das Fenster schließen?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int result = JOptionPane.showConfirmDialog(this,
+                "Wollen Sie wirklich das Fenster schließen?",
+                "Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
         //Option Dialogergebnisse immer mit Dialogkonstanten abfragen
         if (result == JOptionPane.YES_OPTION){

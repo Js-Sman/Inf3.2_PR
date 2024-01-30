@@ -5,6 +5,7 @@ import Aufgabe_Kniffel.Model.WuerfelModel;
 import Aufgabe_Kniffel.Utils.KniffelLogger;
 import Aufgabe_Kniffel.View.MainWindow;
 
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,9 +25,10 @@ public class Kniffel implements Subscriber<Wuerfel> {
     private int score;
 
     private boolean[] taken;
+    private boolean[] locked;
 
 
-    public Kniffel(MainWindow view){
+    public Kniffel(MainWindow view) {
         logger.info("Init Kniffel");
         this.view = view;
 
@@ -34,6 +36,7 @@ public class Kniffel implements Subscriber<Wuerfel> {
         subscriptions = new ArrayList<>();
 
         taken = new boolean[6];
+        locked = new boolean[6];
         wuerfel = new WuerfelModel[6];
         for (int i = 0; i < 6; i++) {
             wuerfel[i] = new WuerfelModel(i);
@@ -44,40 +47,66 @@ public class Kniffel implements Subscriber<Wuerfel> {
     public void start() {
         int i = 0;
         for (WuerfelModel model : wuerfel) {
-            if (!taken[i++]) {
+            if (!(taken[i] || locked[i])) {
                 model.start();
             }
+            i++;
         }
     }
 
     public void stop() {
         int i = 0;
         for (WuerfelModel model : wuerfel) {
-            if (!taken[i++]) {
+            if (!(taken[i] || locked[i])) {
                 model.stop();
             }
+            i++;
         }
     }
 
-    public void take(int lblNumber){
+    public void take(int lblNumber) {
         taken[lblNumber] = !taken[lblNumber];
 
         if (taken[lblNumber]) {
-            view.getLblArray()[lblNumber].setBorder(new LineBorder(Color.GREEN, 3));
-        }
-        else {
-            view.getLblArray()[lblNumber].setBorder(null);
+            view.getLblWuerfelArray()[lblNumber].setBorder(new LineBorder(Color.GREEN, 3));
+        } else {
+            view.getLblWuerfelArray()[lblNumber].setBorder(null);
         }
     }
 
-    public void updateScore(){
+    public void lock(int lblNumber) {
+        locked[lblNumber] = taken[lblNumber];
+        view.getLblWuerfelArray()[lblNumber].setBorder(new LineBorder(Color.RED, 3));
+    }
+
+    public void updateScore() {
         score = 0;
-        for ( int i = 0; i < 6; i++) {
-            if (taken[i]) {
-                score += wuerfel[i].getValue();
+        boolean[] tempTakenArray = taken;
+        for (JLabel label : view.getLblScoreArray()) {
+            for (int i = 0; i < 6; i++) {
+                if ((taken[i] || locked[i])) {
+                    score = wuerfel[i].getValue();
+                    label.setText(String.valueOf(score));
+                    lock(i);
+                    taken[i] = false;
+                    break;
+
+                }else {
+                    label.setText("?");
+                }
             }
         }
-        view.getLblScore().setText("Score: " + score);
+        taken = tempTakenArray;
+
+
+        //view.getLblScore().setText("Score: " + score);
+    }
+
+    private JLabel[] resetScoreArray(JLabel[] lblScoreArray) {
+        for (JLabel label : lblScoreArray) {
+            label.setText("?");
+        }
+        return lblScoreArray;
     }
 
 
@@ -92,7 +121,7 @@ public class Kniffel implements Subscriber<Wuerfel> {
         int id = item.getId();
         int value = item.getValue();
 
-        view.getLblArray()[id].setText(String.valueOf(value));
+        view.getLblWuerfelArray()[id].setText(String.valueOf(value));
 
         subscriptions.get(id).request(1);
     }

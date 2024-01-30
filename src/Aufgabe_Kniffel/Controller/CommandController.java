@@ -36,7 +36,7 @@ public class CommandController implements ActionListener, MouseListener {
         this.view.getBtnStop().addActionListener(this);
         this.view.getBtnTake().addActionListener(this);
 
-        for ( JLabel label : this.view.getLblArray() ) {
+        for ( JLabel label : this.view.getLblWuerfelArray() ) {
             label.addMouseListener(this);
         }
     }
@@ -66,7 +66,7 @@ public class CommandController implements ActionListener, MouseListener {
     public void mousePressed(MouseEvent e) {
         JLabel label = (JLabel) e.getSource();
 
-        int lblNumber = indexOfElement(view.getLblArray(), label);
+        int lblNumber = indexOfElement(view.getLblWuerfelArray(), label);
 
         model.take(lblNumber);
     }

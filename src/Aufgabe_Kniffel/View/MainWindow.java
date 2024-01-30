@@ -4,21 +4,24 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class MainWindow extends JFrame{
+public class MainWindow extends JFrame {
 
-   private JButton btnStart;
-   private JButton btnStop;
-   private JButton btnTake;
-
-   private JLabel[] lblArray;
+    private JButton btnStart;
+    private JButton btnStop;
+    private JButton btnTake;
     private JLabel lblScore;
+    private JLabel[] lblWuerfelArray;
 
-    public MainWindow(String name){
+    private JLabel[] lblScoreArray;
+
+    public MainWindow(String name) {
         super(name);    //Setzt den Fensternamen
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);    //Beendet das Fenster mit Exit
 
+        lblScoreArray = new JLabel[6];
+        lblWuerfelArray = new JLabel[6];
         InitComponents();
-        setSize(560,450);
+        setSize(560, 450);
         setVisible(true);
     }
 
@@ -33,7 +36,7 @@ public class MainWindow extends JFrame{
 
         Container buttonContainer = new Container();
         buttonContainer.setLayout(new FlowLayout());
-        Dimension buttonSize = new Dimension(120,30);
+        Dimension buttonSize = new Dimension(120, 30);
         btnStart = new JButton("Start");
         btnStop = new JButton("Stop");
         btnTake = new JButton("Take");
@@ -46,25 +49,37 @@ public class MainWindow extends JFrame{
         buttonContainer.add(btnStop);
         buttonContainer.add(btnTake);
 
-        lblScore = new JLabel("Score:       ");
+        Container uiContainer = new Container();
+        uiContainer.setLayout(new FlowLayout());
+        Container scoreContainer = new Container();
+        scoreContainer.setLayout(new BoxLayout(scoreContainer, BoxLayout.X_AXIS));
+        Font scoreLabelFont = new Font("Arial", Font.BOLD, 16);
+        for (int i = 0; i < 6; i++) {
+            lblScoreArray[i] = new JLabel("?", SwingConstants.CENTER);
+            lblScoreArray[i].setFont(scoreLabelFont);
+            scoreContainer.add(lblScoreArray[i]);
+        }
+
+        lblScore = new JLabel("Score: ");
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
-        JSeparator spacer = new JSeparator(JSeparator.HORIZONTAL);
+
+        uiContainer.add(lblScore);
+        uiContainer.add(scoreContainer);
 
         southContainer.add(buttonContainer, BorderLayout.CENTER);
-        southContainer.add(spacer, BorderLayout.PAGE_END);
-        southContainer.add(lblScore, BorderLayout.LINE_END);
+        southContainer.add(uiContainer, BorderLayout.PAGE_END);
 
         //CenterContainer
         Container centerContainer = new Container();
-        centerContainer.setLayout(new GridLayout(2,3));
-        lblArray = new JLabel[6];
-        Font labelFont = new Font("Arial", Font.PLAIN, 28);
+        centerContainer.setLayout(new GridLayout(2, 3));
+
+        Font wuerfelLabelFont = new Font("Arial", Font.PLAIN, 28);
         for (int i = 0; i < 6; i++) {
-            lblArray[i] = new JLabel("?", SwingConstants.CENTER);
+            lblWuerfelArray[i] = new JLabel("?", SwingConstants.CENTER);
         }
 
-        for (JLabel label : lblArray) {
-            label.setFont(labelFont);
+        for (JLabel label : lblWuerfelArray) {
+            label.setFont(wuerfelLabelFont);
             centerContainer.add(label);
         }
 
@@ -85,11 +100,15 @@ public class MainWindow extends JFrame{
         return btnTake;
     }
 
-    public JLabel[] getLblArray() {
-        return lblArray;
+    public JLabel[] getLblWuerfelArray() {
+        return lblWuerfelArray;
     }
 
     public JLabel getLblScore() {
         return lblScore;
+    }
+
+    public JLabel[] getLblScoreArray() {
+        return lblScoreArray;
     }
 }

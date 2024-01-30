@@ -1,6 +1,7 @@
-package Aufgabe_Init;
+package Aufgabe_Kniffel;
 
-import Aufgabe_Init.View.MainWindow;
+import Aufgabe_Kniffel.Controller.CommandController;
+import Aufgabe_Kniffel.View.MainWindow;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -12,12 +13,12 @@ public class Start
    */
   private Start()
   {
-    MainWindow view = new MainWindow("Hauptfenster"); //Neues Fenster mit Namen initialisieren
-    view.registerEvents();  //Events registrieren
+    MainWindow view = new MainWindow("Kniffel"); //Neues Fenster mit Namen initialisieren
+    Kniffel kniffel = new Kniffel(view);
+    CommandController commandController = new CommandController(view, kniffel);
+    commandController.registerEvents();
+    commandController.registerCommands();
 
-    //Fenster Parameter setzen, kann auch im Fenster ctor passieren
-    view.setSize(300,300);
-    view.setVisible(true);
   }
 
   /**

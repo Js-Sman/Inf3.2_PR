@@ -7,6 +7,9 @@ public class Wuerfel {
     private final int id;
     private int value;
 
+
+
+
     private final Random randomGenerator;
 
     public Wuerfel(int id){
@@ -26,4 +29,7 @@ public class Wuerfel {
     public int getValue(){
         return this.value;
     }
+
+
+
 }

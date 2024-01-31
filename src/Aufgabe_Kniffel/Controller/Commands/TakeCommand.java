@@ -12,6 +12,16 @@ public class TakeCommand implements ICommand {
 
     @Override
     public void execute() {
-        this.model.updateScore();
+        this.model.takeLocked();
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
+
+    @Override
+    public void executeUndo() {
+        System.out.println("Undo Command: " + this.getClass());
     }
 }

@@ -9,6 +9,7 @@ public class MainWindow extends JFrame {
     private JButton btnStart;
     private JButton btnStop;
     private JButton btnTake;
+    private JButton btnRestart;
     private JLabel lblScore;
     private JLabel[] lblWuerfelArray;
 
@@ -40,11 +41,14 @@ public class MainWindow extends JFrame {
         btnStart = new JButton("Start");
         btnStop = new JButton("Stop");
         btnTake = new JButton("Take");
+        btnRestart = new JButton("Restart");
 
         btnStart.setPreferredSize(buttonSize);
         btnStop.setPreferredSize(buttonSize);
         btnTake.setPreferredSize(buttonSize);
+        btnRestart.setPreferredSize(buttonSize);
 
+        buttonContainer.add(btnRestart);
         buttonContainer.add(btnStart);
         buttonContainer.add(btnStop);
         buttonContainer.add(btnTake);
@@ -55,12 +59,13 @@ public class MainWindow extends JFrame {
         scoreContainer.setLayout(new BoxLayout(scoreContainer, BoxLayout.X_AXIS));
         Font scoreLabelFont = new Font("Arial", Font.BOLD, 16);
         for (int i = 0; i < 6; i++) {
-            lblScoreArray[i] = new JLabel("?", SwingConstants.CENTER);
+            lblScoreArray[i] = new JLabel("", SwingConstants.CENTER);
             lblScoreArray[i].setFont(scoreLabelFont);
+            scoreContainer.add(new JLabel(" "));
             scoreContainer.add(lblScoreArray[i]);
         }
 
-        lblScore = new JLabel("Score: ");
+        lblScore = new JLabel("Kniffel: ");
         lblScore.setFont(new Font("Arial", Font.BOLD, 16));
 
         uiContainer.add(lblScore);
@@ -110,5 +115,9 @@ public class MainWindow extends JFrame {
 
     public JLabel[] getLblScoreArray() {
         return lblScoreArray;
+    }
+
+    public JButton getBtnRestart() {
+        return btnRestart;
     }
 }

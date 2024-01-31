@@ -1,17 +1,15 @@
 package Aufgabe_Kniffel.Utils;
 
-import java.util.Formatter;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.*;
 
 public class KniffelLogger {
 
     private static final String LOGGER_NAME = "Kniffel_Logger";
-
+    private static final String CONFIG_PATH = "D:\\WorkingDirectory\\RePo_Projects\\Inf3.2_PR\\Inf3.2_PR\\src\\Aufgabe_Kniffel\\Utils\\loggerConfig.properties";
     private static Logger lg = null;
-
     private KniffelLogger() {
     }
 
@@ -28,14 +26,32 @@ public class KniffelLogger {
     private static void initLogger() {
         try {
 
-            ConsoleHandler ch = new ConsoleHandler();
-            ch.setFormatter(new KniffelFormatter());
-            ch.setLevel(Level.ALL);
-            lg.setUseParentHandlers(false);
-            lg.setLevel(Level.ALL);
-            lg.addHandler(ch);
+            //Properties-Datei von angegebenem Pfad laden.
+            //In der Datei stehen Key-Value paare
+            Properties properties = new Properties();
+            FileInputStream fileInputStream = new FileInputStream(CONFIG_PATH);
+            properties.load(fileInputStream);
 
-        } catch (SecurityException e) {
+            //KonsolenHandler anlegen
+            ConsoleHandler consoleHandler = new ConsoleHandler();
+            consoleHandler.setFormatter(new KniffelFormatter());
+            consoleHandler.setLevel(Level.parse(properties.getProperty("LOG_LEVEL")));
+
+            //FileHandler anlegen
+            FileHandler fileHandler = new FileHandler(properties.getProperty("LOG_FILE"),false);
+            fileHandler.setFormatter(new KniffelFormatter());
+            fileHandler.setLevel(Level.parse(properties.getProperty("LOG_LEVEL")));
+
+            //Allgemeine Logger parameter einstellen
+            lg.setUseParentHandlers(false);
+            lg.setLevel(Level.parse(properties.getProperty("LOG_LEVEL")));
+
+            //Custom Handler dem Logger hinzufügen
+            lg.addHandler(consoleHandler);
+            lg.addHandler(fileHandler);
+
+
+        } catch (SecurityException | IOException e) {
             throw new RuntimeException(e);
         }
     }

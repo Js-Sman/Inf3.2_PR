@@ -3,16 +3,16 @@ package Aufgabe_Kniffel.Controller.Commands;
 import Aufgabe_Kniffel.Controller.ICommand;
 import Aufgabe_Kniffel.Kniffel;
 
-public class StopCommand implements ICommand {
+public class RestartCommand implements ICommand {
     private Kniffel model;
 
-    public StopCommand(Kniffel model){
+    public RestartCommand(Kniffel model){
         this.model = model;
     }
 
     @Override
     public void execute() {
-        this.model.stop();
+        this.model.restart();
     }
 
     @Override

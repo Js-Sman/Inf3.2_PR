@@ -18,11 +18,17 @@ public class WuerfelModel implements Runnable{
 
     private Thread thd;
 
+    private boolean isLocked;
+
     private SubmissionPublisher<Wuerfel> wuerfelPublisher;
+    private boolean aktive;
 
     public WuerfelModel(int id){
         logger.config("Neues Model anlegen -> id: " + id);
-        this.wuerfel = new Wuerfel(id);
+
+        wuerfel = new Wuerfel(id);
+        isLocked = false;
+        aktive = true;
         wuerfelPublisher = new SubmissionPublisher<>();
         running = false;
     }
@@ -31,14 +37,35 @@ public class WuerfelModel implements Runnable{
         return wuerfel.getValue();
     }
 
+    public int getId(){
+        return wuerfel.getId();
+    }
+
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public synchronized void toggelLock() {
+        isLocked = !isLocked;
+    }
+
     public void addWuerfelSubscriber(Subscriber<Wuerfel> subscriber){
         this.wuerfelPublisher.subscribe(subscriber);
     }
 
-    public void start(){
-        logger.config(""+wuerfel.getId());
+    public void removeWuerfelSubscriber(){
+        this.wuerfelPublisher.close();
+    }
 
-        if ( thd == null) {
+    public void start(){
+        logger.config(""+wuerfel.getId() +" thd ==" + thd);
+
+        if ( thd == null && aktive) {
             thd = new Thread(this);
             running = true;
             thd.start();
@@ -58,7 +85,7 @@ public class WuerfelModel implements Runnable{
     @Override
     public void run() {
 
-        while(true) {
+        while(aktive) {
 
             if (!running) {
                 synchronized (this) {
@@ -69,7 +96,7 @@ public class WuerfelModel implements Runnable{
                     }
                 }
             }
-            else {
+            else if (!isLocked) {
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
@@ -81,5 +108,10 @@ public class WuerfelModel implements Runnable{
             }
         }
 
+    }
+
+    public void endThread() {
+        aktive = false;
+        removeWuerfelSubscriber();
     }
 }

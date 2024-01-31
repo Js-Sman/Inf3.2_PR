@@ -1,5 +1,6 @@
 package Aufgabe_Kniffel.Controller;
 
+import Aufgabe_Kniffel.Controller.Commands.RestartCommand;
 import Aufgabe_Kniffel.Controller.Commands.StartCommand;
 import Aufgabe_Kniffel.Controller.Commands.StopCommand;
 import Aufgabe_Kniffel.Controller.Commands.TakeCommand;
@@ -35,6 +36,7 @@ public class CommandController implements ActionListener, MouseListener {
         this.view.getBtnStart().addActionListener(this);
         this.view.getBtnStop().addActionListener(this);
         this.view.getBtnTake().addActionListener(this);
+        this.view.getBtnRestart().addActionListener(this);
 
         for ( JLabel label : this.view.getLblWuerfelArray() ) {
             label.addMouseListener(this);
@@ -45,10 +47,12 @@ public class CommandController implements ActionListener, MouseListener {
         StartCommand startCommand = new StartCommand(model);
         StopCommand stopCommand = new StopCommand(model);
         TakeCommand takeCommand = new TakeCommand(model);
+        RestartCommand restartCommand = new RestartCommand(model);
 
         invoker.addCommand(view.getBtnStart(), startCommand);
         invoker.addCommand(view.getBtnStop(), stopCommand);
         invoker.addCommand(view.getBtnTake(), takeCommand);
+        invoker.addCommand(view.getBtnRestart(), restartCommand);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class CommandController implements ActionListener, MouseListener {
 
         int lblNumber = indexOfElement(view.getLblWuerfelArray(), label);
 
-        model.take(lblNumber);
+        model.lock(lblNumber);
     }
 
     // Method to find the index of an element in an array

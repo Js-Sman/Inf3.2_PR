@@ -14,4 +14,14 @@ public class StartCommand implements ICommand {
     public void execute() {
         this.model.start();
     }
+
+    @Override
+    public boolean isUndoable() {
+        return false;
+    }
+
+    @Override
+    public void executeUndo() {
+        System.out.println("Undo Command: " + this.getClass());
+    }
 }

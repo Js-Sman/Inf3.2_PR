@@ -1,6 +1,8 @@
 package Aufgabe_Kniffel;
 
 import Aufgabe_Kniffel.Controller.CommandController;
+import Aufgabe_Kniffel.Model.DruckModel;
+import Aufgabe_Kniffel.Model.WuerfelModel;
 import Aufgabe_Kniffel.View.MainWindow;
 
 import javax.swing.JOptionPane;
@@ -13,8 +15,11 @@ public class Start
    */
   private Start()
   {
+    String filePath = "";
     MainWindow view = new MainWindow("Kniffel"); //Neues Fenster mit Namen initialisieren
     Kniffel kniffel = new Kniffel(view);
+    DruckModel durckerModel = new DruckModel(filePath);
+    kniffel.setDruckerModel(durckerModel);
     CommandController commandController = new CommandController(view, kniffel);
     commandController.registerEvents();
     commandController.registerCommands();

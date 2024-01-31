@@ -49,6 +49,7 @@ public class CommandController implements ActionListener, MouseListener {
         TakeCommand takeCommand = new TakeCommand(model);
         RestartCommand restartCommand = new RestartCommand(model);
 
+
         invoker.addCommand(view.getBtnStart(), startCommand);
         invoker.addCommand(view.getBtnStop(), stopCommand);
         invoker.addCommand(view.getBtnTake(), takeCommand);

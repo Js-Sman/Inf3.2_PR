@@ -1,5 +1,6 @@
 package Aufgabe_Kniffel;
 
+import Aufgabe_Kniffel.Model.DruckModel;
 import Aufgabe_Kniffel.Model.Wuerfel;
 import Aufgabe_Kniffel.Model.WuerfelModel;
 import Aufgabe_Kniffel.Utils.KniffelLogger;
@@ -7,6 +8,7 @@ import Aufgabe_Kniffel.View.MainWindow;
 
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.concurrent.Flow.*;
 import java.util.logging.Logger;
@@ -22,6 +24,7 @@ public class Kniffel implements Subscriber<Wuerfel> {
 
     private MainWindow view;
     private int score;
+    private DruckModel druckerModel;
 
 
     public Kniffel(MainWindow view) {
@@ -118,5 +121,14 @@ public class Kniffel implements Subscriber<Wuerfel> {
             wuerfel[i] = new WuerfelModel(i);
             wuerfel[i].addWuerfelSubscriber(this);
         }
+    }
+
+    public void setDruckerModel(DruckModel durckerModel) {
+        this.druckerModel = durckerModel;
+    }
+
+
+    public Printable getDruckerModel() {
+        return this.druckerModel;
     }
 }

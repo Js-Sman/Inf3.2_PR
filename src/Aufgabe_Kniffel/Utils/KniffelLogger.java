@@ -8,7 +8,8 @@ import java.util.logging.*;
 public class KniffelLogger {
 
     private static final String LOGGER_NAME = "Kniffel_Logger";
-    private static final String CONFIG_PATH = "D:\\WorkingDirectory\\RePo_Projects\\Inf3.2_PR\\Inf3.2_PR\\src\\Aufgabe_Kniffel\\Utils\\loggerConfig.properties";
+    //private static final String CONFIG_PATH = "D:\\WorkingDirectory\\RePo_Projects\\Inf3.2_PR\\Inf3.2_PR\\src\\Aufgabe_Kniffel\\Utils\\loggerConfig.properties";
+    private static final String CONFIG_PATH = "C:\\WorkingDirectory\\Java\\Inf3.2_PR\\Inf3.2_PR\\src\\Aufgabe_Kniffel\\Utils\\loggerConfig.properties";
     private static Logger lg = null;
     private KniffelLogger() {
     }

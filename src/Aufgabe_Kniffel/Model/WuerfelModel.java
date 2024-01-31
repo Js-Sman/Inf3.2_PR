@@ -114,4 +114,5 @@ public class WuerfelModel implements Runnable{
         aktive = false;
         removeWuerfelSubscriber();
     }
+
 }

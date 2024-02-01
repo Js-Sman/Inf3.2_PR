@@ -16,7 +16,7 @@ public class GridFrame extends JComponent{
 
         for (int i = 0; i < Config.getValue("SIZE"); i++) {
             tiles[i] = new JPanel();
-            tiles[i].setBackground(Color.WHITE);
+            tiles[i].setBackground(Color.BLACK);
 
 //            if (i % 2 == 0) {
 //                tiles[i].setBackground(Color.BLACK);

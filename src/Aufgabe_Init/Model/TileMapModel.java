@@ -3,6 +3,7 @@ package Aufgabe_Init.Model;
 import Aufgabe_Init.Config.Config;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.Flow;
 import java.util.concurrent.SubmissionPublisher;
 import java.util.logging.Logger;
@@ -21,15 +22,17 @@ public class TileMapModel implements Flow.Subscriber<TileData> {
     public TileMapModel() throws IOException {
         this.tileDataPublisher = new SubmissionPublisher<>();
         this.tileGenerators = new TileGenerator[Config.getValue("SIZE")];
+        Random random = new Random();
 
         for (int i = 0; i < Config.getValue("SIZE"); i++) {
             tileGenerators[i] = new TileGenerator(i);
+//            tileGenerators[i] = new TileGenerator(i, random.nextInt(3,7));
             tileGenerators[i].addTileDataSubscriber(this);
         }
     }
 
     public void startTileGenerator(int index){
-        logger.info("Start Tile: " + index);
+        //logger.info("Start Tile: " + index);
         tileGenerators[index].start();
     }
 

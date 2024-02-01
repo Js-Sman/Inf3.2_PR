@@ -1,35 +1,61 @@
 package Aufgabe_Init.Model;
 
-import jdk.jshell.JShell;
+import Aufgabe_Init.Config.Config;
 
+import java.io.IOException;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 
-public class TileGenerator implements Runnable{
+public class TileGenerator implements Runnable {
+
+    Logger logger = Logger.getLogger("TileLogger");
 
 
     private SubmissionPublisher<TileData> tileDataPublisher;
     private ExecutorService eService;
+    private Thread thd;
     private final Object LOCK;
     private TileData tileData;
     private AtomicBoolean isGenerating;
+    private boolean timeout;
+    private long timeout_sekonds;
 
-    public TileGenerator(int id) {
+    private long sleepTime;
+
+    public TileGenerator(int id) throws IOException {
 
         this.tileData = new TileData(id);
         this.tileDataPublisher = new SubmissionPublisher<>();
         this.LOCK = new Object();
         this.isGenerating = new AtomicBoolean(false);
         this.eService = null;
+        this.thd = null;
+        this.timeout_sekonds = (Config.getValue("TILE_GENERATOR_TIMEOUT") * 1000L);
+        this.sleepTime = Config.getValue("TILE_BLINK_FREQUENCY");
     }
 
-    public void addTileDataSubscriber(Flow.Subscriber<TileData> subscriber){
+
+    public void addTileDataSubscriber(Flow.Subscriber<TileData> subscriber) {
         tileDataPublisher.subscribe(subscriber);    //TileMapModel
     }
 
-    public void start(){
+    public void start() {
 
         isGenerating.set(true);
+
+        if (thd == null) {
+            logger.info("New Timeout");
+            thd = new Thread(() -> {
+                try {
+                    timeout();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            thd.start();
+            thd = null;
+        }
 
 
         synchronized (LOCK) {
@@ -43,15 +69,26 @@ public class TileGenerator implements Runnable{
 
     }
 
-    public void stop(){
+    public void stop() {
         isGenerating.set(false);
     }
+
+    public synchronized void timeout() throws InterruptedException {
+        logger.info("Start Timeout");
+        Thread.sleep(timeout_sekonds);
+        stop();
+        logger.info("Stop Timeout");
+    }
+
     @Override
     public void run() {
 
         while (true) {
 
+
             if (!isGenerating.get()) {
+                tileData.resetColor();
+                tileDataPublisher.submit(tileData);
                 synchronized (LOCK) {
                     try {
                         LOCK.wait();
@@ -65,12 +102,16 @@ public class TileGenerator implements Runnable{
             tileData.setRandomColor();
             tileDataPublisher.submit(tileData);
 
+
             try {
-                Thread.sleep(100);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
+
         }
+
 
     }
 

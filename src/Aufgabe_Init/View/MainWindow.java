@@ -1,5 +1,7 @@
 package Aufgabe_Init.View;
 
+import Aufgabe_Init.Config.Config;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ public class MainWindow extends JFrame{
         mainWindow.add(gridFrame,BorderLayout.CENTER);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);    //Beendet das Fenster mit Exit
 
-        setSize(400,400);
+        setSize(Config.getValue("WIDTH"),Config.getValue("HEIGHT"));
         setVisible(true);
     }
 

@@ -5,11 +5,10 @@ import Aufgabe_Init.View.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.logging.Logger;
 
-public class MouseController implements MouseListener {
+public class MouseController implements MouseListener{
 
     Logger logger = Logger.getLogger("OhmLogger");
 
@@ -51,9 +50,11 @@ public class MouseController implements MouseListener {
 
         if (!model.getAtomicBoolean(index)) {
             model.startTileGenerator(index);
-        } else {
-            model.stopTileGenerator(index);
         }
+//
+//        else {
+//            model.stopTileGenerator(index);
+//        }
 
 
     }
@@ -62,4 +63,5 @@ public class MouseController implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
 }

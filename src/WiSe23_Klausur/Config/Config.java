@@ -1,4 +1,4 @@
-package Aufgabe_Init.Config;
+package WiSe23_Klausur.Config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class Config {
-    private static final String PATH = "D:\\WorkingDirectory\\RePo_Projects\\Inf3.2_PR\\Inf3.2_PR\\src\\Aufgabe_Init\\Config\\config.properties";
+    private static final String PATH = "src/Aufgabe_Init/Config/config.properties";
 
 
     private static HashMap<String,Integer> propertiesDictionary;

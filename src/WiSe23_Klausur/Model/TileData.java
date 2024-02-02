@@ -1,6 +1,6 @@
-package Aufgabe_Init.Model;
+package WiSe23_Klausur.Model;
 
-import Aufgabe_Init.Config.Config;
+import WiSe23_Klausur.Config.Config;
 
 import java.awt.*;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package Aufgabe_Init.Controller;
+package WiSe23_Klausur.Controller;
 
-import Aufgabe_Init.Model.TileData;
-import Aufgabe_Init.View.MainWindow;
+import WiSe23_Klausur.Model.TileData;
+import WiSe23_Klausur.View.MainWindow;
 
 import java.awt.*;
 import java.util.concurrent.Flow;

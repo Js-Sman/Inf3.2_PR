@@ -1,9 +1,9 @@
-package Aufgabe_Init;
+package WiSe23_Klausur;
 
-import Aufgabe_Init.Controller.FrameAdapter;
-import Aufgabe_Init.Controller.MouseController;
-import Aufgabe_Init.Model.TileMapModel;
-import Aufgabe_Init.View.MainWindow;
+import WiSe23_Klausur.Controller.FrameAdapter;
+import WiSe23_Klausur.Controller.MouseController;
+import WiSe23_Klausur.Model.TileMapModel;
+import WiSe23_Klausur.View.MainWindow;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

@@ -1,11 +1,10 @@
-package Aufgabe_Init.View;
+package WiSe23_Klausur.View;
 
-import Aufgabe_Init.Config.Config;
+import WiSe23_Klausur.Config.Config;
 
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 
 public class MainWindow extends JFrame{
